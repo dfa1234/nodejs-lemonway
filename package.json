@@ -1,0 +1,35 @@
+{
+  "name": "nodejs-lemonway",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "repository":"https://github.com/dfa1234/nodejs-lemonway",
+  "scripts": {
+    "ts-node": "./node_modules/.bin/ts-node index.ts",
+    "install-ts": "./node_modules/.bin/pm2 install typescript",
+    "start": "./node_modules/.bin/pm2 start index.ts --name $npm_package_name",
+    "restart": "./node_modules/.bin/pm2 restart $npm_package_name",
+    "stop": "./node_modules/.bin/pm2 stop $npm_package_name",
+    "log": "./node_modules/.bin/pm2 log $npm_package_name"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "mysql": "^2.15.0",
+    "reflect-metadata": "^0.1.10",
+    "request": "^2.83.0",
+    "sequelize": "^4.28.6",
+    "sequelize-typescript": "^0.6.2",
+    "ssl-root-cas": "^1.2.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.11.0",
+    "@types/mysql": "^2.15.2",
+    "@types/request": "^2.0.9",
+    "@types/sequelize": "^4.0.79",
+    "pm2": "^2.9.3",
+    "ts-node": "^4.0.2",
+    "typescript": "^2.6.2"
+  }
+}
