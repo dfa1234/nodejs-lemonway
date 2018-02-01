@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "license": "MIT",
-  "repository":"https://github.com/dfa1234/nodejs-lemonway",
+  "repository": "https://github.com/dfa1234/nodejs-lemonway",
   "scripts": {
     "ts-node": "./node_modules/.bin/ts-node index.ts",
     "install-ts": "./node_modules/.bin/pm2 install typescript",
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",

@@ -5,7 +5,8 @@ import bodyParser = require("body-parser");
 import {Request, Response, NextFunction} from "express";
 const logger = require('morgan');
 const sslRootCas = require('ssl-root-cas');
-import getCustomer from './services/get-customer';
+const cookieParser = require('cookie-parser');
+import proceedPayment from './services/proceed-payment';
 import * as http from 'http';
 import * as https from 'https';
 import * as fs from 'fs';
@@ -14,10 +15,11 @@ import * as fs from 'fs';
 //SERVER CONFIGURATION
 const app = express();
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(logger('[:date[clf]] - :remote-addr - :method - :url - :status - :response-time ms'));
 app.use((req:Request, res:Response, next:NextFunction)=> {
     res.header('Access-Control-Allow-Credentials', "true");
-    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Origin', "http://localhost:8100");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept,Access-Control-Allow-Credentials,Authorization');
     if (req.method === "OPTIONS"){
@@ -45,8 +47,7 @@ const pool = mysql.createPool({
 
 //ROUTES
 app.get('/',(req,res,next) => res.json("..."));
-app.get('/customer/:email',getCustomer(pool));
-
+app.post('/proceed-payment',proceedPayment(pool));
 
 
 //START
