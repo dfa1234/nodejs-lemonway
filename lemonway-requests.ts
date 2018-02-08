@@ -7,24 +7,19 @@ import {
     UpdateWalletDetailsRequest
 } from "./lemonway-types";
 import {Response} from "request";
+import config from "./config";
 
 const lemonRequest = (methodName:string, versionNumber:string, postData:any) => {
 
     const urlDirectkit = "https://sandbox-api.lemonway.fr/mb/demo/dev/directkitjson2/Service.asmx/";
-    const commonParams:any = {
-        "wlLogin":  "society",
-        "wlPass":   "123456",
-        "language": "en",
-        "walletIp": "1.1.1.1",
-        "walletUa": "Node.js Typescript Tutorial",
-        "version": versionNumber
-    };
+    const commonParams:any = config.walletLemonWay;
+    commonParams.version = versionNumber;
 
     for (let param of Object.keys(commonParams)) {
         postData[param] = commonParams[param];
     }
 
-    let options = {
+    const options = {
         url: urlDirectkit + methodName,
         method: "POST",
         headers: {
@@ -36,21 +31,20 @@ const lemonRequest = (methodName:string, versionNumber:string, postData:any) => 
     return new Promise((resolve, reject) => {
         request(options, (error:any, response:Response, body:any) => {
             if(error) {
-                //console.log("Request error"+error);
                 reject("Request error"+error);
             } else if (response.statusCode != 200) {
-                //console.log("HTTP error " + response.statusCode + ": " + body.Message);
                 reject("HTTP error  " + response.statusCode + ": " + body.Message)
             } else {
                 if (body.d.E) {
-                    //console.log("API error" +body.d.E);
-                    reject("API error" +body.d.E)
+                    reject("API error" +JSON.stringify(body.d.E))
                 } else {
                     resolve(body.d);
                 }
             }
         });
-    });
+    }).catch(e => {
+        console.log('CATCHED:',e)
+    })
 
 };
 

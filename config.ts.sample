@@ -5,7 +5,14 @@ export default {
     databaseHost: 'localhost',
     databasePort: 3306,
     port: 3000,
-    portSSL: 3443
+    portSSL: 3443,
+    walletLemonWay:{
+        "wlLogin":  "society",
+        "wlPass":   "123456",
+        "language": "en",
+        "walletIp": "1.1.1.1",
+        "walletUa": "Node.js Typescript Lemonway",
+    }
 };
 
 

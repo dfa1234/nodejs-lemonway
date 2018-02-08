@@ -10,6 +10,7 @@ import proceedPayment from './services/proceed-payment';
 import * as http from 'http';
 import * as https from 'https';
 import * as fs from 'fs';
+import {GetWalletDetails} from "./lemonway-requests";
 
 
 //SERVER CONFIGURATION
@@ -46,9 +47,21 @@ const pool = mysql.createPool({
 
 
 //ROUTES
-app.get('/',(req,res,next) => res.json("..."));
+app.get('/',(req,res,next) => res.json("👍"));
 app.post('/proceed-payment',proceedPayment(pool));
+app.post('/get-wallet',proceedPayment(pool));
+app.post('/register-iban/',(req, res, next) => {
+    if(!req.body || !req.body.email){
+        return res.json({error:'no-email'});
+    }
 
+    GetWalletDetails({email:req.body.email}).then(
+        res => {
+
+        }
+    )
+
+});
 
 //START
 http.createServer(app).listen(config.port,()=>{
